@@ -1,0 +1,5 @@
+"Cancer","Subset1","Subset2","Isoform ID","Name","EXP1","EXP2","adjusted P-Value","Measure"
+"Uveal melanoma","Uveal melanoma - Stage IV(4)","Uveal melanoma - Stage IIB(27)","uc004aeg.3","BC000869","0.29002894093974574","0.6521292499375434","0.006554123106205243","TPM"
+"Uveal melanoma","Uveal melanoma - Stage IV(4)","Uveal melanoma - Stage IIB(27)","uc002sbr.2","BC071802","0","0.025572619907933934","0.008809322579289909","TPM"
+"Uveal melanoma","Uveal melanoma - Stage IV(4)","Uveal melanoma - Stage IIB(27)","uc011agh.1","CECR5-AS1","0.05697424901273747","1.0196546949706582","0.009799803680641365","TPM"
+"Uveal melanoma","Uveal melanoma - Stage IV(4)","Uveal melanoma - Stage IIB(27)","uc010eif.1","LIPE-AS1","0.00130824125794045","0.14713565521991226","0.00223411082970098","TPM"

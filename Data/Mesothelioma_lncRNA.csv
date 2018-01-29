@@ -1,0 +1,5 @@
+"Cancer","Subset1","Subset2","Isoform ID","Name","EXP1","EXP2","adjusted P-Value","Measure"
+"Mesothelioma","Mesothelioma - Stage III(44)","Mesothelioma - Stage I(7)","uc003xjb.2","BC034319","1.498387445057328","0.1856930482507581","0.0061352994706381295","TPM"
+"Mesothelioma","Mesothelioma - Stage III(44)","Mesothelioma - Stage I(7)","uc001eze.2","BC038201","0.8655674331433953","0.2611406306313836","0.004973502660537631","TPM"
+"Mesothelioma","Mesothelioma - Stage III(44)","Mesothelioma - Stage I(7)","uc004fcz.2","IDS2","1.2956038837183108","0.26399862261431","0.005344305374777091","TPM"
+"Mesothelioma","Mesothelioma - Stage III(44)","Mesothelioma - Stage I(7)","uc010jfh.1","LOC100505636","0.1490631043656536","0","0.0011330355097963548","TPM"

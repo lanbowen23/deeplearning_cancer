@@ -1,0 +1,7 @@
+"Cancer","Subset1","Subset2","Isoform ID","Name","EXP1","EXP2","adjusted P-Value","Measure"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc001afz.1","ATAD3A","0.7833190342825981","0.09425266027584536","0.00586098531477055","TPM"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc010xgw.1","IZUMO4","0.8851780852510454","0.22685280998300927","0.002717280628355244","TPM"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc002asb.2","KIF23","3.4717392430231935","0.1840389717463883","0.0023288298982868283","TPM"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc010yro.1","MTHFD2","3.1810606148987244","0.38371117982723846","0.005789609459238367","TPM"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc010pcs.1","SCNM1","2.214423527417293","0.6219720353641846","0.005053644395056729","TPM"
+"Adrenocortical carcinoma","Adrenocortical carcinoma - Stage IV(15)","Adrenocortical carcinoma - Stage I(9)","uc003uyf.2","ZNHIT1","1.6007213002070169","0.48612375933747465","0.005419456500467371","TPM"

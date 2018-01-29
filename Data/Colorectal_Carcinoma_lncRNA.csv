@@ -1,0 +1,5 @@
+"Cancer","Subset1","Subset2","Transcript ID","Name","EXP1","EXP2","adjusted P-Value","Measure"
+"Colorectal Carcinoma","Colorectal carcinoma - Stage IV (ajcc)(18)","Colorectal carcinoma - Metastatic Stage IV (liver ajcc)(17)","ENST00000598996.2","FENDRR","4.197017777777778","0.36534217647058825","0.0015935847451336712","FPKM"
+"Colorectal Carcinoma","Colorectal carcinoma - Stage IV (ajcc)(18)","Colorectal carcinoma - Metastatic Stage IV (liver ajcc)(17)","ENST00000595886.1","FENDRR","2.6375831111111108","0.34006682352941175","0.0008547218035548621","FPKM"
+"Colorectal Carcinoma","Colorectal carcinoma - Stage IV (ajcc)(18)","Colorectal carcinoma - Metastatic Stage IV (liver ajcc)(17)","ENST00000599749.3","FENDRR","1.6195138333333332","0.16533511764705883","0.009953407810909769","FPKM"
+"Colorectal Carcinoma","Colorectal carcinoma - Stage IV (ajcc)(18)","Colorectal carcinoma - Metastatic Stage IV (liver ajcc)(17)","ENST00000601250.1","LINC01082","4.418328277777778","0.6767897647058824","0.007863485525048406","FPKM"
