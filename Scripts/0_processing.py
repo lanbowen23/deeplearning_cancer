@@ -6,40 +6,6 @@ from random import randrange
 import glob
 
 
-# dat1 = pd.read_csv("Cancer_1_a_Breast_Carcinoma_pc.csv")
-# dat1.head(2)
-#
-# dat1 = dat1.loc[:,["Transcript ID","EXP1","EXP2"]]
-# dat1.head(2)
-#
-#
-# dat12 = pd.read_csv("Cancer_1_b_Glioma_pc.csv")
-# dat12.head(2)
-#
-# dat12 = dat12.loc[:,["Transcript ID","EXP1","EXP2"]]
-# dat12.columns = ["Transcript ID","L_EXP1","L_EXP2"]
-# dat12.head(2)
-#
-# datc = pd.merge(dat1, dat12, on='Transcript ID',how='left')
-#
-# datc.head(500)
-#
-# rnaseq = dat1["Transcript ID"].values
-# lnc = dat12["Transcript ID"].values
-#
-# i=0
-# for x in rnaseq:
-#     if x in lnc:
-#         i += 1
-#         print (i)
-#     break
-#
-# common = [1 for x in rnaseq if x in lnc]
-#
-# len(common)
-# len(rnaseq)
-# len(lnc)
-
 allfiles = glob.glob("Data/*.csv")
 allfiles
 frame = pd.DataFrame()
@@ -47,3 +13,10 @@ list_ = []
 for file_ in allfiles:
     df = pd.read_csv(file_,index_col=None, header=0)
     print (df.shape)
+    print (df.head(2))
+    print (file_)
+    name = file_[5:14]
+    df_2= df.loc[:, ["Transcript ID", "EXP1", "EXP2"]]
+    df_2.columns = [name+"ID", name+"Cancer", name+"Normal"]
+    print(df_2.head(2))
+    break
