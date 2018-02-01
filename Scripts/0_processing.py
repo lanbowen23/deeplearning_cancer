@@ -32,10 +32,10 @@ all_data["GENEID"] = dna_cordinates_unique_ids
 all_data.set_index("GENEID")
 
 # construct a datamatrix
-i = 1
+counter = 1
 for file in allfiles:
-    print (file, i )
-    i += 1
+    print (file, counter )
+    counter += 1
     name = file[5:14]
     all_data[name+"_Cancer"] =  0.0
     all_data[name + "_Normal"] = 0.0
@@ -51,8 +51,9 @@ for file in allfiles:
 
         if i not in visited_index:
 
-            replicates = file_data.loc[file_data["GENEID"] == row["GENEID"], :].index
-            visited_index.append(x for x in replicates )
+            replicates = file_data.loc[file_data["GENEID"] == row["GENEID"], :].index.values
+            visited_index.extend([x for x in replicates ])
+
 
             exp1 = file_data.loc[file_data["GENEID"]==row["GENEID"],:].mean()[0]
             exp2 = file_data.loc[file_data["GENEID"] == row["GENEID"], :].mean()[1]
@@ -66,4 +67,43 @@ for file in allfiles:
 
 
 
-all_data.to_csv("temp.csv")
+#all_data.to_csv("temp.csv")
+
+all_data_normal = all_data.iloc[:,[x for x in range(62) if x%2 == 0]]
+all_data_normal['class']=0
+all_data_normal.to_csv("all_data_normal.csv")
+
+caner_index =[0]
+caner_index.extend([x for x in range(61) if x%2 != 0])
+all_data_cancer = all_data.iloc[:,caner_index]
+all_data_cancer['class']=1
+all_data_cancer.to_csv("all_data_cancer.csv")
+
+
+all_data_cancer.columns = ['GENEID', 'Leukemia_', 'Sarcoma_l', 'Lung_squa',
+       'Glioblast', 'Ovarian_S', 'Cervical_',
+       'Lung_aden', 'Testicula', 'Mesotheli',
+       'Stomach_C', 'Sarcoma_p', 'Renal_Cel',
+       'Colorecta', 'Esophagea', 'Pheochrom',
+       'Colon_Car', 'Thyroid_c', 'Uveal_mel',
+       'Pancreati', 'Cutaneous', 'Breast_Ca',
+       'Endometri', 'Squamous_', 'Carcinoma',
+       'Adrenocor', 'Malignant', 'Glioma_ln',
+       'Glioma_pc', 'Prostate_', 'Liver_car', 'class']
+
+
+all_data_normal.columns = ['GENEID', 'Leukemia_', 'Sarcoma_l', 'Lung_squa',
+       'Glioblast', 'Ovarian_S', 'Cervical_',
+       'Lung_aden', 'Testicula', 'Mesotheli',
+       'Stomach_C', 'Sarcoma_p', 'Renal_Cel',
+       'Colorecta', 'Esophagea', 'Pheochrom',
+       'Colon_Car', 'Thyroid_c', 'Uveal_mel',
+       'Pancreati', 'Cutaneous', 'Breast_Ca',
+       'Endometri', 'Squamous_', 'Carcinoma',
+       'Adrenocor', 'Malignant', 'Glioma_ln',
+       'Glioma_pc', 'Prostate_', 'Liver_car', 'class']
+
+all_data_combined = all_data_normal.append(all_data_cancer)
+all_data_combined.shape
+all_data_combined = all_data_combined.sample(frac=1).reset_index(drop=True)
+all_data_combined.to_csv("all_data_combined.csv",index=False)
