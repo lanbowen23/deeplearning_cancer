@@ -20,9 +20,10 @@ def correlation_info(datamatrix,th):
     cormat_melted_filt = cormat_melted.loc[(cormat_melted['values']>=th) & (cormat_melted['values'] !=1.0)]
     todrop = set(cormat_melted_filt['f2'])
     #df_all_data.drop(todrop, axis=1, inplace=True)
-
     print ("Correlation filter >" , str(th) , ": " , str(len(todrop)) , " features from the dataset")
     print (todrop)
+
+
 
 def naivebayes(df_data,cv):
     print("naivebayes running ... ")
