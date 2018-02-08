@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
 import importlib
-#importlib.reload(baseline_models)
 from Scripts import baseline_models
+importlib.reload(baseline_models)
 from sklearn import preprocessing
 import matplotlib.pylab as plt
 from sklearn.decomposition import PCA
+
 
 df_all_data = pd.read_csv("~/ghub/deeplearning_cancer/Data/all_data_combined.csv")
 df_all_data.head(10)
@@ -49,3 +50,14 @@ ax.grid()
 
 corr_matrix = x_scaled.corr()
 eig_val_cov, eig_vec_cov = np.linalg.eig(corr_matrix)
+
+
+## logistic regression
+baseline_models.logregression(df_all_data.loc[:,'Leukemia_':'class'],2)
+# Logistic regression score 0.566191938143
+
+
+## grid search for lasso and xgboost
+scoremat = baseline_models.grid_search('LRLASSO',df_all_data.loc[:,'Leukemia_':'class'],2,[0.001,0.01,0.1,1.0],True)
+#scoremat array([ 0.52264199,  0.56396043,  0.56559497,  0.56660413])
+
