@@ -11,6 +11,12 @@ from sklearn.decomposition import PCA
 df_all_data = pd.read_csv("~/ghub/deeplearning_cancer/Data/all_data_combined.csv")
 df_all_data.head(10)
 
+### center data
+x_data =df_all_data.loc[:,'Leukemia_':'Liver_car']
+x_scaled = pd.DataFrame(preprocessing.scale(x_data))
+x_scaled.columns = x_data.columns
+df_all_data.loc[:,'Leukemia_':'Liver_car'] = x_scaled
+
 # check correlation
 baseline_models.correlation_info(df_all_data.loc[:,'Leukemia_':'Liver_car'],0.7)
 #Correlation filter > 0.7 :  1  features from the dataset
@@ -19,10 +25,8 @@ baseline_models.correlation_info(df_all_data.loc[:,'Leukemia_':'Liver_car'],0.7)
 baseline_models.naivebayes(df_all_data.loc[:,'Leukemia_':'class'],3)
 #Average naivebayes accuracy is: 0.50395133322
 
+
 ## pca analysis
-x_data =df_all_data.loc[:,'Leukemia_':'Liver_car']
-x_scaled = pd.DataFrame(preprocessing.scale(x_data))
-x_scaled.columns = x_data.columns
 #plt.scatter(x_scaled.iloc[:,2],x_scaled.iloc[:,1])
 #x_scaled.iloc[:,0:5].plot()
 pca = PCA(n_components=2)
@@ -57,7 +61,32 @@ baseline_models.logregression(df_all_data.loc[:,'Leukemia_':'class'],2)
 # Logistic regression score 0.566191938143
 
 
+## svm regression
+baseline_models.lsvm(df_all_data.loc[:,'Leukemia_':'class'],2)
+
+
+
 ## grid search for lasso and xgboost
 scoremat = baseline_models.grid_search('LRLASSO',df_all_data.loc[:,'Leukemia_':'class'],2,[0.001,0.01,0.1,1.0],True)
 #scoremat array([ 0.52264199,  0.56396043,  0.56559497,  0.56660413])
 
+scoremat = baseline_models.grid_search('LSVM',df_all_data.loc[:,'Leukemia_':'class'],2,[1.0,10.0,100.0],True)
+
+
+
+# # analyze effect of regularization on linear model
+# from sklearn.linear_model import LogisticRegression
+# LogReg = LogisticRegression()
+# LogReg.fit(df_all_data.loc[:,'Leukemia_':'Liver_car'], df_all_data.loc[:,'class'])
+# plt.plot(LogReg.coef_[0])
+# LogReg2 = LogisticRegression(C=.001, penalty='l1', tol=1e-6)
+# LogReg2.fit(df_all_data.loc[:,'Leukemia_':'Liver_car'], df_all_data.loc[:,'class'])
+# plt.plot(LogReg2.coef_[0])
+# plt.scatter(LogReg.coef_[0],LogReg2.coef_[0])
+# np.count_nonzero(LogReg2.coef_[0])
+# np.count_nonzero(LogReg.coef_[0])
+#
+#
+# import statsmodels.api as sm
+# logit = sm.Logit(df_all_data.loc[:,'class'],df_all_data.loc[:,'Leukemia_':'Liver_car'])
+# result = logit.fit()

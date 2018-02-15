@@ -2,6 +2,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
 from sklearn.model_selection import KFold
 from sklearn.model_selection import StratifiedKFold,cross_val_predict
 from xgboost.sklearn import XGBClassifier
@@ -67,6 +68,11 @@ def logregression(df_data, cv_):
     plt.xlabel('False Positive Rate')
     plt.show()
 
+def lsvm(df_data,cv_):
+    predicted = cross_val_predict(SVC(), df_data.iloc[:, 0:df_data.shape[1] - 2],
+                                  df_data.iloc[:, df_data.shape[1] - 1], cv=cv_)
+    print("svm score", metrics.accuracy_score(df_data.iloc[:, df_data.shape[1] - 1], predicted))
+
 
 def grid_search(model , df_data, cv_, first_dim,verbose, second_dim=None, third_dim=None):
     if model == 'LRLASSO':
@@ -78,3 +84,13 @@ def grid_search(model , df_data, cv_, first_dim,verbose, second_dim=None, third_
             if verbose == True:
                 print('GRID SEARCHING LR: progress: {0:.3f} % ...'.format((index + 1) / (len(first_dim)) * 100))
         return auc_matrix
+    if model == 'LSVM':
+        auc_matrix = np.zeros(len(first_dim))
+        for index, regularization_strength in enumerate(first_dim):
+            model = SVC(kernel='linear', C = regularization_strength)
+            predicted = cross_val_predict(model, df_data.iloc[:, 0:df_data.shape[1] - 2], df_data.iloc[:, df_data.shape[1] - 1], cv=cv_)
+            auc_matrix[index] = metrics.accuracy_score(df_data.iloc[:,df_data.shape[1]-1], predicted)
+            if verbose == True:
+                print('GRID SEARCHING LSVM: progress: {0:.3f} % ...'.format((index + 1) / (len(first_dim)) * 100))
+        return auc_matrix
+
