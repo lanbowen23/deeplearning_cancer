@@ -10,11 +10,14 @@ from sklearn import metrics
 import numpy as np
 import matplotlib.pylab as plt
 
-def correlation_info(datamatrix,th):
+def correlation_info(datamatrix,th,drop,draw):
     print("correlation_info running ... ")
     df_all_data = datamatrix
+
     corr_matrix = df_all_data.iloc[:,0:(df_all_data.shape[1]-1)].corr()
-    sns.heatmap(corr_matrix,xticklabels=corr_matrix.columns,yticklabels=corr_matrix.columns)
+    if draw:
+        sns.heatmap(corr_matrix,xticklabels=corr_matrix.columns,yticklabels=corr_matrix.columns)
+
     cormat_melted = []
     for i in range(len(corr_matrix)):
         f1 = corr_matrix.columns[i]
@@ -25,10 +28,14 @@ def correlation_info(datamatrix,th):
     cormat_melted.head(5)
     cormat_melted_filt = cormat_melted.loc[(cormat_melted['values']>=th) & (cormat_melted['values'] !=1.0)]
     todrop = set(cormat_melted_filt['f2'])
-    #df_all_data.drop(todrop, axis=1, inplace=True)
+
     print ("Correlation filter >" , str(th) , ": " , str(len(todrop)) , " features from the dataset")
     print (todrop)
 
+    if drop ==1:
+        return todrop
+    else:
+        return  []
 
 
 def naivebayes(df_data,cv):
@@ -55,18 +62,18 @@ def naivebayes(df_data,cv):
 def logregression(df_data, cv_):
     predicted = cross_val_predict(LogisticRegression(), df_data.iloc[:,0:df_data.shape[1]-2], df_data.iloc[:,df_data.shape[1]-1], cv=cv_)
     print("Logistic regression score",metrics.accuracy_score(df_data.iloc[:,df_data.shape[1]-1], predicted))
-    false_positive_rate, true_positive_rate, thresholds = metrics.roc_curve(df_data.iloc[:,df_data.shape[1]-1], predicted)
-    roc_auc = metrics.auc(false_positive_rate, true_positive_rate)
-    plt.title('Receiver Operating Characteristic')
-    plt.plot(false_positive_rate, true_positive_rate, 'b',
-             label='AUC = %0.2f' % roc_auc)
-    plt.legend(loc='lower right')
-    plt.plot([0, 1], [0, 1], 'r--')
-    plt.xlim([-0.1, 1.2])
-    plt.ylim([-0.1, 1.2])
-    plt.ylabel('True Positive Rate')
-    plt.xlabel('False Positive Rate')
-    plt.show()
+    # false_positive_rate, true_positive_rate, thresholds = metrics.roc_curve(df_data.iloc[:,df_data.shape[1]-1], predicted)
+    # roc_auc = metrics.auc(false_positive_rate, true_positive_rate)
+    # plt.title('Receiver Operating Characteristic')
+    # plt.plot(false_positive_rate, true_positive_rate, 'b',
+    #          label='AUC = %0.2f' % roc_auc)
+    # plt.legend(loc='lower right')
+    # plt.plot([0, 1], [0, 1], 'r--')
+    # plt.xlim([-0.1, 1.2])
+    # plt.ylim([-0.1, 1.2])
+    # plt.ylabel('True Positive Rate')
+    # plt.xlabel('False Positive Rate')
+    # plt.show()
 
 def lsvm(df_data,cv_):
     predicted = cross_val_predict(SVC(), df_data.iloc[:, 0:df_data.shape[1] - 2],
