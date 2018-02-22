@@ -25,46 +25,14 @@ df_all_data.iloc[:,0:df_all_data.shape[1]-1] = x_scaled
 df_all_data.head(10)
 
 ## visualize data
-df_all_data.iloc[:,1:5].diff().hist(color='k', alpha=0.5, bins=50)
+df_all_data.iloc[:,1:15].diff().hist(color='k', alpha=0.5, bins=50)
 df_all_data.iloc[:,1:10].plot.box()
 
-
-
 # check correlation
-todrop = baseline_models.correlation_info(df_all_data.iloc[:,0:df_all_data.shape[1]],0.9,drop=1,draw=0)
+todrop = baseline_models.correlation_info(df_all_data.iloc[:,0:df_all_data.shape[1]],0.8,drop=0,draw=1)
 df_all_data.drop(todrop, axis=1, inplace=True)
 print (df_all_data.shape)
 #Correlation filter > 0.7 :  1  features from the dataset
-
-
-## pca analysis
-#plt.scatter(x_scaled.iloc[:,2],x_scaled.iloc[:,1])
-#x_scaled.iloc[:,0:5].plot()
-pca = PCA(n_components=30)
-print (pca.fit(x_scaled).explained_variance_)
-plt.plot(pca.fit(x_scaled).explained_variance_ratio_)
-
-principalComponents = pca.fit_transform(x_scaled)
-principalDf = pd.DataFrame(data = principalComponents
-             , columns = ['principal component 1', 'principal component 2'])
-fig = plt.figure(figsize = (8,8))
-ax = fig.add_subplot(1,1,1)
-ax.set_xlabel('Principal Component 1', fontsize = 15)
-ax.set_ylabel('Principal Component 2', fontsize = 15)
-ax.set_title('2 component PCA', fontsize = 20)
-finalDf = pd.concat([principalDf, df_all_data['readmit']], axis = 1)
-targets = [1, 0]
-colors = ['r', 'g']
-for target, color in zip(targets,colors):
-    indicesToKeep = finalDf.loc[:,'readmit'] == target
-    ax.scatter(finalDf.loc[indicesToKeep, 'principal component 1']
-               , finalDf.loc[indicesToKeep, 'principal component 2']
-               , c = color)
-ax.legend(targets)
-ax.grid()
-
-corr_matrix = x_scaled.corr()
-eig_val_cov, eig_vec_cov = np.linalg.eig(corr_matrix)
 
 
 # naive bayes model 3 fold cv
@@ -89,10 +57,6 @@ print(scoremat)
 scoremat = baseline_models.grid_search('LSVM',df_all_data.iloc[:,0:df_all_data.shape[1]],2,[0.01,0.1,1.0,10.0],True)
 print(scoremat)
 ##array[ 0.82574349  0.82713755  0.83271375  0.83410781]
-
-
-
-
 
 
 # # analyze effect of regularization on linear model
